@@ -51,7 +51,7 @@ public class PushAgentBasic : Agent
 
     EnvironmentParameters m_ResetParams;
 
-    void Awake()
+    protected override void Awake()
     {
         m_PushBlockSettings = FindObjectOfType<PushBlockSettings>();
     }
