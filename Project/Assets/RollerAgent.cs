@@ -7,14 +7,14 @@ using Unity.MLAgents.Actuators;
 
 public class RollerAgent : Agent
 {
-    private Rigidbody m_Rigidbody;
+    private Rigidbody _rigidbody;
 
     public Transform target;
     public float forceMultiplier = 10f;
 
     void Start()
     {
-        m_Rigidbody = GetComponent<Rigidbody>();
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
 
@@ -23,8 +23,8 @@ public class RollerAgent : Agent
         // If the Agent fell, reset its moment
         if (this.transform.localPosition.y < 0)
         {
-            m_Rigidbody.angularVelocity = Vector3.zero;
-            m_Rigidbody.velocity = Vector3.zero;
+            _rigidbody.angularVelocity = Vector3.zero;
+            _rigidbody.velocity = Vector3.zero;
             transform.localPosition = new Vector3(0, 0.5f, 0);
         }
 
@@ -39,8 +39,8 @@ public class RollerAgent : Agent
         sensor.AddObservation(transform.localPosition);
 
         // Agent velocity
-        sensor.AddObservation(m_Rigidbody.velocity.x);
-        sensor.AddObservation(m_Rigidbody.velocity.z);
+        sensor.AddObservation(_rigidbody.velocity.x);
+        sensor.AddObservation(_rigidbody.velocity.z);
     }
 
     public override void OnActionReceived(ActionBuffers actionBuffers)
@@ -48,7 +48,7 @@ public class RollerAgent : Agent
         Vector3 controlSignal = Vector3.zero;
         controlSignal.x = actionBuffers.ContinuousActions[0];
         controlSignal.z = actionBuffers.ContinuousActions[1];
-        m_Rigidbody.AddForce(controlSignal * forceMultiplier);
+        _rigidbody.AddForce(controlSignal * forceMultiplier);
 
         // Rewards
         float distanceToTarget = Vector3.Distance(transform.localPosition, target.localPosition);
