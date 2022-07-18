@@ -10,6 +10,7 @@ public class RollerAgent : Agent
     private Rigidbody _rigidbody;
 
     public Transform target;
+    public TargetManager targetManager;
     public float forceMultiplier = 10f;
 
     void Start()
@@ -28,8 +29,9 @@ public class RollerAgent : Agent
             transform.localPosition = new Vector3(0, 0.5f, 0);
         }
 
-        // Move the Target to a new spot
+        // Move the Target to a new spot and move automatically
         target.localPosition = new Vector3(Random.value * 8 - 4, 0.5f, Random.value * 8 - 4);
+        targetManager.GotoNextPoint();
     }
 
     public override void CollectObservations(VectorSensor sensor)

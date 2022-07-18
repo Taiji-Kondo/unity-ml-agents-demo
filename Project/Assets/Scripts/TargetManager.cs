@@ -25,7 +25,7 @@ public class TargetManager : MonoBehaviour
         }
     }
 
-    private void GotoNextPoint()
+    public void GotoNextPoint()
     {
         // _isMoving = true;
         _agent.isStopped = false;
